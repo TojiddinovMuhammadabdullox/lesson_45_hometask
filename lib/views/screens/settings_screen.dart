@@ -3,12 +3,14 @@ import 'package:lesson_45_hometask/models/todo.dart';
 import 'dart:math';
 
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  List<Todo> _todos = [];
+  final List<Todo> _todos = [];
 
   DateTime selectedDate = DateTime.now();
 
@@ -38,25 +40,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: titleController,
-                  decoration: InputDecoration(labelText: 'Title'),
+                  decoration: const InputDecoration(labelText: 'Title'),
                 ),
                 TextField(
                   controller: descriptionController,
-                  decoration: InputDecoration(labelText: 'Description'),
+                  decoration: const InputDecoration(labelText: 'Description'),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     Text(
                       'Date: ${_formatDate(selectedDate)}',
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     ElevatedButton(
                       onPressed: () async {
                         final pickedDate = await showDatePicker(
@@ -71,11 +73,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           });
                         }
                       },
-                      child: Text('Select date'),
+                      child: const Text('Select date'),
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     final newTodo = Todo(
@@ -145,17 +147,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Add Note'),
+          title: const Text('Add Note'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: titleController,
-                decoration: InputDecoration(labelText: 'Title'),
+                decoration: const InputDecoration(labelText: 'Title'),
               ),
               TextField(
                 controller: contentController,
-                decoration: InputDecoration(labelText: 'Content'),
+                decoration: const InputDecoration(labelText: 'Content'),
               ),
             ],
           ),
@@ -164,7 +166,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -176,7 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 );
                 Navigator.of(context).pop(newNote);
               },
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
           ],
         );
@@ -188,10 +190,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: _todos.isEmpty
-          ? Center(
+          ? const Center(
               child: Text('No todos yet'),
             )
           : ListView.builder(
@@ -199,7 +201,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               itemBuilder: (context, index) {
                 final todo = _todos[index];
                 return Card(
-                  margin: EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
                   child: ListTile(
                     title: Text(
                       todo.title,
@@ -226,13 +228,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.edit),
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Colors.green,
+                          ),
                           onPressed: () {
                             _addOrEditTodo(todo: todo);
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
                           onPressed: () {
                             _deleteTodo(todo.id);
                           },
@@ -250,7 +258,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         onPressed: () {
           _addOrEditTodo();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
